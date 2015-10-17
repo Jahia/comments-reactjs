@@ -1,0 +1,16 @@
+<div id="comments-handlebar-content">
+  <div>
+    <h2>{{title}}</h2>
+    <div class="commentList">
+      {{#each comments}}
+        <div class="comment">
+          <span>{{this}}</span>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+  <form>
+    <textarea name="text"></textarea>
+    <input type="button" value="Post" onClick="handleSubmit($('#comments-handlebar-content .commentList'),'{{workspace}}', '{{identifier}}', this.form.text.value)"/>
+  </form>
+</div>

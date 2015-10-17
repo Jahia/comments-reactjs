@@ -1,0 +1,16 @@
+<div id="comments-underscore-content">
+  <div>
+    <h2><%=title%></h2>
+    <div class="commentList">
+      <% _.forEach(comments, function (comment) { %>
+      <div class="comment">
+        <span><%=comment%></span>
+      </div>
+      <%})%>
+    </div>
+  </div>
+  <form>
+    <textarea name="text"></textarea>
+    <input type="button" value="Post" onClick="handleSubmit($('#comments-underscore-content .commentList'), '<%=workspace%>', '<%=identifier%>', this.form.text.value)"/>
+  </form>
+</div>

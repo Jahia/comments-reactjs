@@ -1,0 +1,29 @@
+{
+  "name": "Comments-ReactJS",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:sajidmomin/comments-reactjs.git"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "reactify",
+        {
+          "es6": false
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "browserify": "^11.0.1",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-watch": "^4.3.5",
+    "json-stable-stringify": "^1.0.0",
+    "react": "^0.13.3",
+    "reactify": "^1.1.1",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.27.0"
+  }
+}
