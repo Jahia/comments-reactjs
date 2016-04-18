@@ -45,7 +45,8 @@
                 <extensions>true</extensions>
                 <configuration>
                     <instructions>
-                        <Jahia-Depends>default</Jahia-Depends>
+                        <Jahia-Depends>default,scriptlanguages-thymeleaf</Jahia-Depends>
+                        <Jahia-Module-Scripting-Views>thymeleaf</Jahia-Module-Scripting-Views>
                         <Include-Resource>
                             {maven-resources}
                         </Include-Resource>
@@ -143,6 +144,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.jahia.modules</groupId>
+            <artifactId>scriptlanguages-thymeleaf</artifactId>
+            <version>2.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr.annotations</artifactId>
             <version>1.9.12</version>
@@ -155,5 +162,7 @@
             <version>1.2.8</version>
             <scope>provided</scope>
         </dependency>
+
+
     </dependencies>
 </project>
