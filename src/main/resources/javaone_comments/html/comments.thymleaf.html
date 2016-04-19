@@ -1,8 +1,7 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-transitional-thymeleaf-4.dtd">
-<div xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns="http://www.w3.org/1999/xhtml"
      xmlns:th="http://www.thymeleaf.org"
-     xmlns:dx="http://www.jahia.com/thymeleaf/dx"
-     xmlns:dx-template="http://www.jahia.com/thymeleaf/template" th:with="firstName=sajid">
+     xmlns:dx="http://www.jahia.com/thymeleaf/dx">
   <!--/*@thymesVar id="currentNode" type="org.jahia.services.content.JCRNodeWrapper"*/-->
   <!--/*@thymesVar id="out" type="java.io.PrintWriter"*/-->
   <!--/*@thymesVar id="script" type="org.jahia.services.render.scripting.Script"*/-->
@@ -11,12 +10,23 @@
   <!--/*@thymesVar id="renderContext" type="org.jahia.services.render.RenderContext"*/-->
   <!--/*@thymesVar id="currentResource" type="org.jahia.services.render.Resource"*/-->
   <!--/*@thymesVar id="url" type="org.jahia.services.render.URLGenerator"*/-->
-  <script type="text/javascript" th:src="${url.currentModule + '/javascript/lib/jquery.atmosphere.js'}"></script>
-  <script type="text/javascript" th:src="${url.currentModule + '/javascript/lib/react-0.14.0.min.js'}"></script>
-  <script type="text/javascript" th:src="${url.currentModule + '/javascript/lib/react-dom-0.14.0.min.js'}"></script>
-  <script type="text/javascript" th:src="${url.currentModule + '/javascript/socketService.js'}"></script>
-  <script type="text/javascript" th:src="${url.currentModule + '/javascript/react/application.js'}"></script>
-  <dx:script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" th:remove="tag"></script>
+  <script type="text/javascript"
+          th:src="${url.currentModule + '/javascript/lib/jquery.atmosphere.js'}"
+          src="../../javascript/lib/jquery.atmosphere.js"></script>
+  <script type="text/javascript"
+          th:src="${url.currentModule + '/javascript/lib/react-0.14.0.min.js'}"
+          src="../../javascript/lib/react-0.14.0.min.js"></script>
+  <script type="text/javascript"
+          th:src="${url.currentModule + '/javascript/lib/react-dom-0.14.0.min.js'}"
+          src="../../javascript/lib/react-dom-0.14.0.min.js"></script>
+  <script type="text/javascript"
+          th:src="${url.currentModule + '/javascript/socketService.js'}"
+          src="../../javascript/socketService.js"></script>
+  <script type="text/javascript"
+          th:src="${url.currentModule + '/javascript/react/application.js'}"
+          src="../../javascript/react/application.js"></script>
+  <dx:script style="display: none">
     var InetAddress = Java.type("java.net.InetAddress");
     var JCRContentUtils = Java.type("org.jahia.services.content.JCRContentUtils");
 
@@ -39,14 +49,33 @@
     }
     var renderedHtml = renderServer(title, items);
   </dx:script>
-  <div th:id="comments-content" th:utext="${nashornGlobal.renderedHtml}"></div>
-  <script type="text/javascript" th:inline="javascript">
+  <th:block th:utext="${nashornGlobal.renderedHtml}">
+    <div id="comments-content">
+      <div data-reactid=".2e3nudhn7bp" data-react-checksum="-584776824">
+        <h2 data-reactid=".2e3nudhn7bp.0">Thymeleaf ReactJS</h2>
+        <div class="commentList" data-reactid=".2e3nudhn7bp.1">
+          <div class="comment" data-reactid=".2e3nudhn7bp.1.$0">
+            <span data-reactid=".2e3nudhn7bp.1.$0.0">Comment 1</span>
+          </div>
+          <div class="comment" data-reactid=".2e3nudhn7bp.1.$1">
+            <span data-reactid=".2e3nudhn7bp.1.$1.0">Comment 2</span>
+          </div>
+        </div>
+        <form data-reactid=".2e3nudhn7bp.2">
+          <textarea data-reactid=".2e3nudhn7bp.2.0"></textarea>
+          <input type="button" value="Post" data-reactid=".2e3nudhn7bp.2.1"/>
+        </form>
+      </div>
+    </div>
+  </th:block>
+  <script type="text/javascript"
+          th:inline="javascript">
     $(function () {
-      var title = /*[[${nashornGlobal.title}]]*/ null;
-      var items = /*[[${nashornGlobal.items.values}]]*/ "";
-      var identifier = /*[[${currentNode.identifier}]]*/ null;
-      var workspace = /*[[${workspace}]]*/ null;
+      var title = /*[[${nashornGlobal.title}]]*/ 'Thymeleaf ReactJS';
+      var items = /*[[${nashornGlobal.items.values}]]*/ ['Comment 1','Comment 2','Comment 3'];
+      var identifier = /*[[${currentNode.identifier}]]*/ 'd3786db1-4bda-4568-91f5-45537bd245f6';
+      var workspace = /*[[${workspace}]]*/ 'default';
       renderClient(title, items, identifier, workspace);
     });
   </script>
-</div>  
+</html>
