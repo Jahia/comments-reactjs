@@ -115,6 +115,6 @@ renderClient = function (title, items, identifier, workspace) {
   };
   React.render(
     <CommentBox data={data}/>,
-    document.getElementById("comments-content")
+    document.getElementById(identifier)
   );
 };

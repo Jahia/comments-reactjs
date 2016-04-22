@@ -1,0 +1,86 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-transitional-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:dx="http://www.jahia.com/thymeleaf/dx" th:remove="tag">
+<!--/*@thymesVar id="currentNode" type="org.jahia.services.content.JCRNodeWrapper"*/-->
+<!--/*@thymesVar id="out" type="java.io.PrintWriter"*/-->
+<!--/*@thymesVar id="script" type="org.jahia.services.render.scripting.Script"*/-->
+<!--/*@thymesVar id="scriptInfo" type="java.lang.String"*/-->
+<!--/*@thymesVar id="workspace" type="java.lang.String"*/-->
+<!--/*@thymesVar id="renderContext" type="org.jahia.services.render.RenderContext"*/-->
+<!--/*@thymesVar id="currentResource" type="org.jahia.services.render.Resource"*/-->
+<!--/*@thymesVar id="url" type="org.jahia.services.render.URLGenerator"*/-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js" th:remove="tag"></script>
+<script type="text/javascript"
+        th:src="${url.currentModule + '/javascript/lib/jquery.atmosphere.js'}"
+        src="../../javascript/lib/jquery.atmosphere.js"></script>
+<script type="text/javascript"
+        th:src="${url.currentModule + '/javascript/lib/react-0.14.0.min.js'}"
+        src="../../javascript/lib/react-0.14.0.min.js"></script>
+<script type="text/javascript"
+        th:src="${url.currentModule + '/javascript/lib/react-dom-0.14.0.min.js'}"
+        src="../../javascript/lib/react-dom-0.14.0.min.js"></script>
+<script type="text/javascript"
+        th:src="${url.currentModule + '/javascript/socketService.js'}"
+        src="../../javascript/socketService.js"></script>
+<script type="text/javascript"
+        th:src="${url.currentModule + '/javascript/react/application.js'}"
+        src="../../javascript/react/application.js"></script>
+<dx:script style="display: none">
+  var InetAddress = Java.type("java.net.InetAddress");
+  var JCRContentUtils = Java.type("org.jahia.services.content.JCRContentUtils");
+
+  var title = currentNode.properties['jcr:title'].string;
+  var nodes = JCRContentUtils.getChildrenOfType(currentNode, 'javaone:comment');
+  var host = renderContext.request.serverName;
+  var port = renderContext.request.serverPort;
+
+  // Load scripts into Nashorn Global space to execute application.js Server Side
+  load("http://" + InetAddress.localHost.hostName + ":"
+      + port + url.currentModule + "/javascript/lib/react-0.14.0.min.js");
+  load("http://" + InetAddress.localHost.hostName + ":"
+      + port + url.currentModule + "/javascript/react/application.js");
+  load("http://" + InetAddress.localHost.hostName + ":"
+      + port + url.currentModule + "/javascript/jahiaService.js");
+
+  // Create two arrays, one to be used on the serverside and the other on the client side.
+  var items = [];
+  // nodes is getting passed as an nodeiterator. we are converting it to an array.
+  if (nodes) {
+    for (var i in nodes) {
+      var node = nodes[i];
+      items.push(node.properties.text.string);
+    }
+  }
+  var renderedHtml = renderServer(title, items);
+</dx:script>
+<div id="d3786db1-4bda-4568-91f5-45537bd245f6" th:id="${currentNode.identifier}">
+  <th:block th:utext="${nashornGlobal.renderedHtml}">
+    <div data-reactid=".2e3nudhn7bp" data-react-checksum="-584776824">
+      <h2 data-reactid=".2e3nudhn7bp.0">Thymeleaf ReactJS</h2>
+      <div class="commentList" data-reactid=".2e3nudhn7bp.1">
+        <div class="comment" data-reactid=".2e3nudhn7bp.1.$0">
+          <span data-reactid=".2e3nudhn7bp.1.$0.0">Comment 1</span>
+        </div>
+        <div class="comment" data-reactid=".2e3nudhn7bp.1.$1">
+          <span data-reactid=".2e3nudhn7bp.1.$1.0">Comment 2</span>
+        </div>
+      </div>
+      <form data-reactid=".2e3nudhn7bp.2">
+        <textarea data-reactid=".2e3nudhn7bp.2.0"></textarea>
+        <input type="button" value="Post" data-reactid=".2e3nudhn7bp.2.1"/>
+      </form>
+    </div>
+  </th:block>
+</div>
+<script type="text/javascript"
+        th:inline="javascript">
+  $(function () {
+    var title = /*[[${nashornGlobal.title}]]*/ 'Thymeleaf ReactJS';
+    var items = /*[[${nashornGlobal.items.values}]]*/ ['Comment 1','Comment 2','Comment 3'];
+    var identifier = /*[[${currentNode.identifier}]]*/ 'd3786db1-4bda-4568-91f5-45537bd245f6';
+    var workspace = /*[[${workspace}]]*/ 'default';
+    renderClient(title, items, identifier, workspace);
+  });
+</script>
+</html>

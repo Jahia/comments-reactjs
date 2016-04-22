@@ -38,7 +38,7 @@ for (var i in nodes) {
 }
 
 // Execute server side script
-print("<div id='comments-content'>" + renderServer(title, items) + "</div>");
+print("<div id='" + currentNode.identifier + "'>" + renderServer(title, items) + "</div>");
 
 // Output script client side to attach any event handlers
 print("<script type='text/javascript'>$(function () {renderClient('" + title + "', [" + clientItems + "], '" + currentNode.identifier + "', '" + workspace + "');});</script>");
